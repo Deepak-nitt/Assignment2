@@ -1,6 +1,22 @@
-<header class="p-3 border-b border-gray-200">
-    <nav class="flex justify-between items-center">
-       <div class="px-5 font-bold text-lg">Logo</div>
-       <button class="px-4 py-2 bg-blue-400 text-white rounded">Add</button>
-    </nav>
+<header class="p-3 border-b border-gray-200 bg-white shadow-sm">
+  <nav class="flex justify-between items-center">
+    <!-- Logo -->
+    <div class="px-5 font-bold text-lg text-gray-800 select-none" aria-label="App logo" tabindex="0">
+      LOGO
+    </div>
+
+    <!-- Add Button -->
+    <button
+      type="button"
+      (click)="onAddClick()"
+      aria-label="Add new portfolio entry"
+      class="py-2 px-4 bg-blue-500 text-white rounded-lg font-medium
+             hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 
+             transition-colors duration-200"
+    >
+      Add
+    </button>
+  </nav>
 </header>
+
+
