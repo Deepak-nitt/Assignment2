@@ -1,4 +1,11 @@
-<app-header/>
+<app-header (addClicked)="showForm()"/>
+
+<br><br>
+
+<app-portfolio-form
+  *ngIf="isFormVisible()"
+  (create)="addPortfolio($event)"
+/>
 <br>
 <br>
-<app-portfolio-form/>
+<app-dashboard [portfolios]="portfolios()"/>
