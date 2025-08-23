@@ -5,6 +5,7 @@ export interface PortfolioFormValue {
   skillsCsv: string;
   projectTitle: string;
   projectDescription: string;
+  createdAt: number; // timestamp for the sorting purpose
 }
 
 
