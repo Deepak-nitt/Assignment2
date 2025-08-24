@@ -8,4 +8,6 @@
 />
 <br>
 <br>
-<app-dashboard [portfolios]="portfolios()"/>
+<app-dashboard [portfolios]="portfolios()"
+  (addClicked)="showForm()"
+/>
