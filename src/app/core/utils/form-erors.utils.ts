@@ -1,4 +1,4 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl } from '@angular/forms';
 
 export class FormErrorsUtils {
   /** Map validator keys to messages */
@@ -13,16 +13,18 @@ export class FormErrorsUtils {
     duplicate: () => 'Duplicate skills are not allowed.',
     onlySpecialChars: () => 'Description cannot contain only symbols or spaces.',
     emoji: () => 'Emojis are not allowed.',
+    skillsMaxLength: (params: any) =>
+      `Each skill can have maximum ${params?.requiredLength} characters").`,
   };
 
   /** Get array of error messages for a control */
   static getErrors(control: AbstractControl): string[] {
     if (!control.errors) return [];
-    if(!control.touched && !control.dirty) return [];
+    if (!control.touched && !control.dirty) return [];
 
-    return Object.keys(control.errors).map(key => {
+    return Object.keys(control.errors).map((key) => {
       const fn = FormErrorsUtils.errorMessages[key];
-      return fn ? fn(control.errors?.[key]?? null) : `Invalid field (${key})`;
+      return fn ? fn(control.errors?.[key]) : `Invalid field (${key})`;
     });
   }
 }

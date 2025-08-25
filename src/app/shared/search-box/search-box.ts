@@ -12,7 +12,7 @@ export class SearchBoxComponent {
     // Input properties for placeholder and value
   @Input() placeholder = 'Search...';
   @Input() value = '';
-  @Output() valueChange = new EventEmitter<string>();
+  @Output() readonly valueChange = new EventEmitter<string>();
 
   // debounce timeout
   private searchTimeout: any;

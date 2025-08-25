@@ -48,7 +48,7 @@
             <div class="flex flex-wrap gap-2">
               <span
                 *ngFor="let skill of portfolio.skillsCsv.split(',')"
-                class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-700 shadow-sm hover:bg-purple-200 transition"
+                class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-700 shadow-sm hover:bg-purple-200 transition break-all"
               >
                 {{ skill.trim() }}
               </span>
@@ -60,7 +60,7 @@
             <h4 class="text-sm font-semibold text-gray-500 uppercase mb-1 tracking-wider">
               Project
             </h4>
-            <p class="text-base font-light text-gray-800">
+            <p class="text-base font-light text-gray-800 break-all">
               {{ portfolio.projectTitle }}
             </p>
           </div>
@@ -70,7 +70,7 @@
             <h4 class="text-sm font-semibold text-gray-500 uppercase mb-1 tracking-wider">
               Description
             </h4>
-            <p class="text-gray-700 font-light leading-relaxed rounded-lg ">
+            <p class="text-gray-700 font-light leading-relaxed rounded-lg break-all ">
               {{ portfolio.projectDescription }}
             </p>
           </div>

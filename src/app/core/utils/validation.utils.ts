@@ -1,11 +1,16 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export class ValidationUtils {
+  // has Emoji
+  static containsEmoji(text: string): boolean {
+    return /[\p{Emoji}]/u.test(text);
+  }
   /** Name Validator */
   static nameValidator(maxLength = 20): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const name = control.value;
       if (!name) return { required: true };
+      if (ValidationUtils.containsEmoji(name)) return { emoji: true };
 
       if (!/^[A-Za-z ]+$/.test(name)) return { invalidChars: true };
       if (/\s{2,}/.test(name)) return { multipleSpaces: true };
@@ -20,10 +25,11 @@ export class ValidationUtils {
   /** Skills Validator */
   static skillsValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const skillsCsv = control.value;
+      const skillsCsv:string = control.value;
       if (!skillsCsv) return { required: true };
+      if (ValidationUtils.containsEmoji(skillsCsv)) return { emoji: true };
 
-      if (!/^[A-Za-z, ]+$/.test(skillsCsv)) return { invalidChars: true };
+      if (!/^[A-Za-z+#., ]+$/.test(skillsCsv)) return { invalidChars: true };
 
       const skills = ValidationUtils.parseSkills(skillsCsv);
       if (skills.length === 0) return { noSkills: true };
@@ -33,6 +39,14 @@ export class ValidationUtils {
 
       const shortSkill = skills.find(s => s.length < 2);
       if (shortSkill) return { tooShort: { requiredLength: 2, actualLength: shortSkill.length } };
+
+      const longSkill = skills.find(s => s.length > 20);
+      if (longSkill) return {
+         skillsMaxLength: { 
+          requiredLength: 20, 
+          actualLength: longSkill.length,
+          skill: longSkill
+         } };
 
       return null;
     };
@@ -50,6 +64,7 @@ export class ValidationUtils {
     return (control: AbstractControl): ValidationErrors | null => {
       const title = control.value;
       if (!title) return { required: true };
+      if (ValidationUtils.containsEmoji(title)) return { emoji: true };
 
       if (title.length < minLength) return { tooShort: { requiredLength: minLength, actualLength: title.length } };
       if (title.length > maxLength) return { tooLong: { requiredLength: maxLength, actualLength: title.length } };
@@ -66,8 +81,9 @@ export class ValidationUtils {
   /** Project Description Validator */
   static descriptionValidator(minLength = 10, maxLength = 400): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const desc = control.value;
+      const desc:string = control.value;
       if (!desc) return { required: true };
+      if (ValidationUtils.containsEmoji(desc)) return { emoji: true };
 
       const trimmed = desc.trim();
 

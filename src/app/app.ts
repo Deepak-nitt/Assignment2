@@ -4,6 +4,7 @@ import { Header } from './shared/header/header';
 import { PortfolioFormComponent } from './features/portfolio/portfolio-form/portfolio-form';
 import { Dashboard } from './features/dashboard/dashboard';
 import { PortfolioFormValue } from './features/portfolio/models/portfolio.model';
+import { PortfolioService } from './core/services/portfolio.services';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +14,20 @@ import { PortfolioFormValue } from './features/portfolio/models/portfolio.model'
   styleUrl: './app.css'
 })
 export class App {
-  isFormVisible = signal(false);
-  portfolios = signal<PortfolioFormValue[]>([]);
+  readonly isFormVisible = signal<boolean>(false);
+  readonly portfolios = signal<PortfolioFormValue[]>([]);
 
-  showForm() {
+  // load portfolios from local storage on init
+  constructor(private readonly portfolioService: PortfolioService) {
+    this.portfolios.set(this.portfolioService.getPortfolios());
+  }
+
+  showForm():void {
     this.isFormVisible.set(true);
   }
 
-  addPortfolio(portfolio: PortfolioFormValue) {
-    this.portfolios.update(list => [...list, portfolio]);
+  addPortfolio(portfolio: PortfolioFormValue):void {
+    this.portfolioService.submitPortfolio(portfolio);
+    this.portfolios.set(this.portfolioService.getPortfolios());
   }
 }
