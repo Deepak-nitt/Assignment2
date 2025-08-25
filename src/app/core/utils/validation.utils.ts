@@ -40,6 +40,7 @@ export class ValidationUtils {
       const shortSkill = skills.find(s => s.length < 2);
       if (shortSkill) return { tooShort: { requiredLength: 2, actualLength: shortSkill.length } };
 
+      // check for skills longer than max length
       const longSkill = skills.find(s => s.length > 20);
       if (longSkill) return {
          skillsMaxLength: { 
@@ -52,6 +53,7 @@ export class ValidationUtils {
     };
   }
 
+// parse skills from CSV string
   static parseSkills(skillsCsv: string): string[] {
     return skillsCsv
       .split(',')
