@@ -74,7 +74,7 @@ This Project runs the portfolio dashboard frontend application using Angular.It 
 1. **Clone the Repository**
 ```bash
 git clone https://github.com/Deepak-nitt/Assignment2
-cd portfolio-dashboard
+cd Assignment2
 ```
 2. **Install the dependencies**
 ``` bash
