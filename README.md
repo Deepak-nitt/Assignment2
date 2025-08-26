@@ -104,6 +104,11 @@ http://localhost:4200
 # for making a component
 ng g c <component-name>
 
+
+# for making a service
+ng g s <service-name>
+
+
 # for making a service
 ng g s <service-name>
 
@@ -120,7 +125,43 @@ ng serve
 6. Open Pull Request
 
 
+# for making a service
+ng g s <service-name>
 
+# for running the project
+ng serve
+
+```
+## Contributing
+1. Fork repository
+2. Create feature branch: `git checkout -b feature/YourFeature`
+3. Make changes
+4. Commit: `git commit -m "Add feature"`
+5. Push: `git push origin feature/YourFeature`
+6. Open Pull Request
+
+# for making a service
+ng g s <service-name>
+
+
+# for making a service
+ng g s <service-name>
+
+
+# for making a service
+ng g s <service-name>
+
+# for running the project
+ng serve
+
+```
+## Contributing
+1. Fork repository
+2. Create feature branch: `git checkout -b feature/YourFeature`
+3. Make changes
+4. Commit: `git commit -m "Add feature"`
+5. Push: `git push origin feature/YourFeature`
+6. Open Pull Request
 
 
 
