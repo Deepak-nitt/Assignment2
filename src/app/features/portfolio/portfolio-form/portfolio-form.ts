@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { PortfolioService } from '../../../core/services/portfolio.services';
 import { ValidationUtils } from '../../../core/utils/validation.utils';
 import { PortfolioFormValue } from '../models/portfolio.model';
+import { FormErrorsUtils } from '../../../core/utils/form-erors.utils';
 
 @Component({
   selector: 'app-portfolio-form',
@@ -13,6 +14,11 @@ import { PortfolioFormValue } from '../models/portfolio.model';
   styleUrls: ['./portfolio-form.css'],
 })
 export class PortfolioFormComponent implements OnInit {
+
+  // input class for styling
+  inputClass = `w-full rounded-md border px-4 py-2 text-gray-900 shadow-sm 
+               focus:ring-blue-200  text-sm transition`;
+
   // Events to notify parent components
   @Output() cancel = new EventEmitter<void>();
   @Output() create = new EventEmitter<PortfolioFormValue>();
@@ -36,6 +42,10 @@ export class PortfolioFormComponent implements OnInit {
   // getter for easier access in template
   get f() {
     return this.form.controls;
+  }
+
+  getErrorMessages(controlName:string):string[]{
+    return FormErrorsUtils.getErrors(this.form.get(controlName)!);
   }
 
   // Handle form submission

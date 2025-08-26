@@ -1,57 +1,43 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export class ValidationUtils {
-  /**Name Validator: only alphabets + spaces, no emojis, no multiple spaces, max length */
+  /** Name Validator */
   static nameValidator(maxLength = 20): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const name = control.value;
       if (!name) return { required: true };
 
-      // 1. Only alphabets + spaces
       if (!/^[A-Za-z ]+$/.test(name)) return { invalidChars: true };
-
-      // 2. Block multiple consecutive spaces
       if (/\s{2,}/.test(name)) return { multipleSpaces: true };
-
-      // 3. Block leading or trailing spaces
       if (name.trim() !== name) return { leadingTrailing: true };
 
-      // 4. Length check
-      if (name.length > maxLength) {
-        return { maxlength: { requiredLength: maxLength, actualLength: name.length } };
-      }
-
-      return null; 
-    };
-  }
-
-  /** Skills Validator: only alphabets, commas, spaces; no duplicates, no empty entries */
-  static skillsValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const skillsCsv = control.value;
-      if (!skillsCsv) return { required: true };
-
-      // 1. Allowed characters only
-      if (!/^[A-Za-z, ]+$/.test(skillsCsv)) return { invalidChars: true };
-
-      // 2. Parse into array
-      const skills = ValidationUtils.parseSkills(skillsCsv);
-
-      // 3. Must have at least one skill
-      if (skills.length === 0) return { noSkills: true };
-
-      // 4. No duplicates (case-insensitive)
-      const lower = skills.map(s => s.toLowerCase());
-      if (new Set(lower).size !== skills.length) return { duplicate: true };
-
-      // 5. Each skill min 2 chars
-      if (skills.some(s => s.length < 2)) return { tooShort: true };
+      if (name.length > maxLength) return { tooLong: { requiredLength: maxLength, actualLength: name.length } };
 
       return null;
     };
   }
 
-  /** Parse CSV skills and remove empty values */
+  /** Skills Validator */
+  static skillsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const skillsCsv = control.value;
+      if (!skillsCsv) return { required: true };
+
+      if (!/^[A-Za-z, ]+$/.test(skillsCsv)) return { invalidChars: true };
+
+      const skills = ValidationUtils.parseSkills(skillsCsv);
+      if (skills.length === 0) return { noSkills: true };
+
+      const lower = skills.map(s => s.toLowerCase());
+      if (new Set(lower).size !== skills.length) return { duplicate: true };
+
+      const shortSkill = skills.find(s => s.length < 2);
+      if (shortSkill) return { tooShort: { requiredLength: 2, actualLength: shortSkill.length } };
+
+      return null;
+    };
+  }
+
   static parseSkills(skillsCsv: string): string[] {
     return skillsCsv
       .split(',')
@@ -59,24 +45,17 @@ export class ValidationUtils {
       .filter(s => !!s);
   }
 
-  /** Project Title Validator: min/max length, no emojis, no multiple spaces */
+  /** Project Title Validator */
   static titleValidator(minLength = 3, maxLength = 100): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const title = control.value;
       if (!title) return { required: true };
 
-      // 1. Length check
-      if (title.length < minLength) {
-        return { minlength: { requiredLength: minLength, actualLength: title.length } };
-      }
-      if (title.length > maxLength) {
-        return { maxlength: { requiredLength: maxLength, actualLength: title.length } };
-      }
+      if (title.length < minLength) return { tooShort: { requiredLength: minLength, actualLength: title.length } };
+      if (title.length > maxLength) return { tooLong: { requiredLength: maxLength, actualLength: title.length } };
 
-      // 2. Block emojis/unicode symbols
-      if (/[\u{1F600}-\u{1F64F}]/u.test(title)) return { emoji: true };
+      if (/[\p{Emoji}]/u.test(title)) return { emoji: true };
 
-      // 3. No leading/trailing/multiple spaces
       if (title.trim() !== title) return { leadingTrailing: true };
       if (/\s{2,}/.test(title)) return { multipleSpaces: true };
 
@@ -84,7 +63,7 @@ export class ValidationUtils {
     };
   }
 
-  /** Project Description Validator: min/max length, no only-spaces */
+  /** Project Description Validator */
   static descriptionValidator(minLength = 10, maxLength = 400): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const desc = control.value;
@@ -92,20 +71,16 @@ export class ValidationUtils {
 
       const trimmed = desc.trim();
 
-      // 1. Trim and length check
-      if (trimmed.length < minLength) {
-        return { minlength: { requiredLength: minLength, actualLength: trimmed.length } };
-      }
-      if (trimmed.length > maxLength) {
-        return { maxlength: { requiredLength: maxLength, actualLength: trimmed.length } };
-      }
+      if (trimmed.length < minLength) return { tooShort: { requiredLength: minLength, actualLength: trimmed.length } };
+      if (trimmed.length > maxLength) return { tooLong: { requiredLength: maxLength, actualLength: trimmed.length } };
 
-      // 2. Ensure not all spaces/special chars
-      if (/^[^A-Za-z0-9]+$/.test(trimmed)) return { onlySpecial: true };
+      if (/^[^A-Za-z0-9]+$/.test(trimmed)) return { onlySpecialChars: true };
 
       return null;
     };
   }
 }
+
+
 
 
