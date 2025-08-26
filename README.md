@@ -107,6 +107,10 @@ ng g c <component-name>
 # for making a service
 ng g s <service-name>
 
+
+# for making a service
+ng g s <service-name>
+
 # for running the project
 ng serve
 

@@ -1,0 +1,92 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form"
+  class="space-y-6 p-8 bg-white border border-gray-200 rounded-2xl shadow-xl max-w-2xl mx-auto">
+
+  <!-- Form Heading -->
+  <h2 class="text-2xl font-bold text-gray-900 border-b pb-3">Add Portfolio</h2>
+
+  <!-- Name -->
+  <div>
+    <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">Name *</label>
+    <input id="name" type="text" formControlName="name" placeholder="e.g. John Doe" autofocus
+      class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-sm transition" />
+
+    <div class="space-y-1 mt-1">
+      <p *ngIf="f['name'].touched && f['name'].errors?.['required']" class="text-red-600 text-xs">Name is required.</p>
+      <p *ngIf="f['name'].errors?.['invalidChars']" class="text-red-600 text-xs">Only alphabets and spaces are allowed.</p>
+      <p *ngIf="f['name'].errors?.['multipleSpaces']" class="text-red-600 text-xs">No multiple consecutive spaces allowed.</p>
+      <p *ngIf="f['name'].errors?.['leadingTrailing']" class="text-red-600 text-xs">No leading or trailing spaces allowed.</p>
+      <p *ngIf="f['name'].errors?.['tooLong']" class="text-red-600 text-xs">Max 20 characters allowed.</p>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div>
+    <label for="skills" class="block text-sm font-semibold text-gray-700 mb-1">Skills (CSV) *</label>
+    <input id="skills" type="text" formControlName="skillsCsv" placeholder="e.g. Angular, TypeScript, Tailwind"
+      class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-sm transition" />
+    <small class="text-gray-500 block mt-1">Enter at least one skill, separated by commas.</small>
+
+    <div class="space-y-1 mt-1">
+      <p *ngIf="f['skillsCsv'].touched && f['skillsCsv'].errors?.['required']" class="text-red-600 text-xs">At least one skill is required.</p>
+      <p *ngIf="f['skillsCsv'].errors?.['invalidChars']" class="text-red-600 text-xs">Please use only alphabets and commas.</p>
+      <p *ngIf="f['skillsCsv'].errors?.['noSkills']" class="text-red-600 text-xs">Please enter at least one valid skill.</p>
+      <p *ngIf="f['skillsCsv'].errors?.['duplicate']" class="text-red-600 text-xs">Duplicate skills are not allowed.</p>
+      <p *ngIf="f['skillsCsv'].errors?.['tooShort']" class="text-red-600 text-xs">Each skill should be at least 2 characters long.</p>
+    </div>
+  </div>
+
+  <!-- Project Title -->
+  <div>
+    <label for="projectTitle" class="block text-sm font-semibold text-gray-700 mb-1">Project Title *</label>
+    <input id="projectTitle" type="text" formControlName="projectTitle" placeholder="e.g. Portfolio Web App"
+      class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-sm transition" />
+
+    <div class="space-y-1 mt-1">
+      <p *ngIf="f['projectTitle'].touched && f['projectTitle'].errors?.['required']" class="text-red-600 text-xs">Project title is required.</p>
+      <p *ngIf="f['projectTitle'].errors?.['tooShort']" class="text-red-600 text-xs">Project title should be at least 3 characters.</p>
+      <p *ngIf="f['projectTitle'].errors?.['tooLong']" class="text-red-600 text-xs">Max 100 characters allowed.</p>
+      <p *ngIf="f['projectTitle'].errors?.['emoji']" class="text-red-600 text-xs">Emojis are not allowed in title.</p>
+      <p *ngIf="f['projectTitle'].errors?.['leadingTrailing']" class="text-red-600 text-xs">No leading or trailing spaces allowed.</p>
+      <p *ngIf="f['projectTitle'].errors?.['multipleSpaces']" class="text-red-600 text-xs">No multiple consecutive spaces allowed.</p>
+    </div>
+  </div>
+
+  <!-- Project Description -->
+  <div>
+    <label for="projectDescription" class="block text-sm font-semibold text-gray-700 mb-1">Project Description *</label>
+    <textarea id="projectDescription" rows="4" formControlName="projectDescription"
+      placeholder="Describe your project in detail..."
+      class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-sm transition"></textarea>
+
+    <div class="space-y-1 mt-1">
+      <p *ngIf="f['projectDescription'].touched && f['projectDescription'].errors?.['required']" class="text-red-600 text-xs">Project description is required.</p>
+      <p *ngIf="f['projectDescription'].errors?.['tooShort']" class="text-red-600 text-xs">Project description should be at least 10 characters.</p>
+      <p *ngIf="f['projectDescription'].errors?.['tooLong']" class="text-red-600 text-xs">Max 400 characters allowed.</p>
+      <p *ngIf="f['projectDescription'].errors?.['onlySpecialChars']" class="text-red-600 text-xs">Description cannot contain only symbols or spaces.</p>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex justify-end space-x-4 pt-6 border-t">
+    <button type="button" (click)="cancel.emit()"
+      class="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200
+             focus:outline-none focus:ring-2 focus:ring-gray-300 transition">
+      Cancel
+    </button>
+    <button type="submit" [disabled]="form.invalid"
+      class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700
+             focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50 transition">
+      Submit
+    </button>
+  </div>
+</form>
+
+
+
+
+
+
