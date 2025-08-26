@@ -13,13 +13,17 @@ import { PortfolioFormValue } from '../models/portfolio.model';
   styleUrls: ['./portfolio-form.css'],
 })
 export class PortfolioFormComponent implements OnInit {
+  // Events to notify parent components
   @Output() cancel = new EventEmitter<void>();
   @Output() create = new EventEmitter<PortfolioFormValue>();
 
+  // Reactive form group
   form!: FormGroup;
 
+  // Inject FormBuilder and PortfolioService
   constructor(private fb: FormBuilder, private portfolioService: PortfolioService) {}
 
+  // Initialize form with validators
   ngOnInit(): void {
     this.form = this.fb.nonNullable.group({
       name: ['', [ValidationUtils.nameValidator(20)]],
@@ -33,6 +37,8 @@ export class PortfolioFormComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+
+  // Handle form submission
 
   onSubmit(): void {
     if (this.form.valid) {

@@ -51,7 +51,7 @@ export class ValidationUtils {
     };
   }
 
-  /** ✅ Parse CSV skills and remove empty values */
+  /** Parse CSV skills and remove empty values */
   static parseSkills(skillsCsv: string): string[] {
     return skillsCsv
       .split(',')
