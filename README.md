@@ -1,17 +1,26 @@
-1. Clone the Repository
-```bash
-git clone https://github.com/Deepak-nitt/Assignment2
-cd portfolio-dashboard
-```
-2. Install the dependencies
-``` bash
-npm install
-```
+![Angular](https://img.shields.io/badge/angular-20.0-red?logo=angular)
+![Node](https://img.shields.io/badge/node-20.x-green?logo=node.js)
+![Issues](https://img.shields.io/github/issues/Deepak-nitt/Assignment2)
 
-3. Run the Project
-```bash
-ng serve
-```
+
+
+
+## PORTFOLIO-DASHBOARD
+This Project runs the portfolio dashboard frontend application using Angular.It allows user to add portfolio entries(Name,Skills,Project Title,Project Description) and displays them as cards in a flat alphabetical order. This app uses the LocalStorage for the persistence and provides search functionality for the cards.
+
+
+
+- **Frontend** (Angular): `http://localhost:4200`
+## Tech stack
+- Angular 15+
+- TypeScript
+- TailWindCSS
+
+## Prerequisites
+- Node.js v18+
+- npm/yarn
+- Angular CLI( npm install -g @angular/cli)
+- internet access to install dependencies
 
 ## Project Structure
 ```
@@ -61,12 +70,57 @@ ng serve
 │   │       ├── search-box.html                   # search-box template
 
 ```
-## Features
+## Quick Start
+1. **Clone the Repository**
+```bash
+git clone https://github.com/Deepak-nitt/Assignment2
+cd portfolio-dashboard
+```
+2. **Install the dependencies**
+``` bash
+npm install
+```
+
+3. **Run the Project**
+```bash
+ng serve
+```
+4. **Open the app**
+``` bash
+http://localhost:4200
+```
+
+## Core Features
+- Header
+- Portfolio form
+- Dashbord(Flat Cards)
+- Project Description
+- Ordering based on Name , CreatedAt
+- Search (Conditional)
+
+## Common Commands
+
+```bash
+# for making a component
+ng g c <component-name>
+
+# for making a service
+ng g s <service-name>
+
+# for running the project
+ng serve
 
 ```
-Add porfolios
-Form Validation
-Dashbord view
-ordering of cards
-Searching via name , skills and projects
-```
+## Contributing
+1. Fork repository
+2. Create feature branch: `git checkout -b feature/YourFeature`
+3. Make changes
+4. Commit: `git commit -m "Add feature"`
+5. Push: `git push origin feature/YourFeature`
+6. Open Pull Request
+
+
+
+
+
+
