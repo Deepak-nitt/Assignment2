@@ -104,6 +104,11 @@ http://localhost:4200
 # for making a component
 ng g c <component-name>
 
+
+# for making a service
+ng g s <service-name>
+
+
 # for making a service
 ng g s <service-name>
 

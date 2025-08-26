@@ -7,7 +7,7 @@ import { PortfolioFormValue } from '../../features/portfolio/models/portfolio.mo
 export class PortfolioService {
   constructor() {}
 
-  /** Submit Portfolio (API call can be added later) */
+  /** Submit Portfolio */
   submitPortfolio(formValue: PortfolioFormValue): void {
     console.log('Portfolio Submitted via Service:', formValue);
   }
