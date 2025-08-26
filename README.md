@@ -107,6 +107,10 @@ ng g c <component-name>
 # for making a service
 ng g s <service-name>
 
+
+# for making a service
+ng g s <service-name>
+
 # for running the project
 ng serve
 
@@ -118,6 +122,7 @@ ng serve
 4. Commit: `git commit -m "Add feature"`
 5. Push: `git push origin feature/YourFeature`
 6. Open Pull Request
+
 
 
 
