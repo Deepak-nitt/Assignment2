@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export class ValidationUtils {
-  /** ✅ Name Validator: only alphabets + spaces, no emojis, no multiple spaces, max length */
+  /**Name Validator: only alphabets + spaces, no emojis, no multiple spaces, max length */
   static nameValidator(maxLength = 20): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const name = control.value;
@@ -21,11 +21,11 @@ export class ValidationUtils {
         return { maxlength: { requiredLength: maxLength, actualLength: name.length } };
       }
 
-      return null; // ✅ valid
+      return null; 
     };
   }
 
-  /** ✅ Skills Validator: only alphabets, commas, spaces; no duplicates, no empty entries */
+  /** Skills Validator: only alphabets, commas, spaces; no duplicates, no empty entries */
   static skillsValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const skillsCsv = control.value;
@@ -59,7 +59,7 @@ export class ValidationUtils {
       .filter(s => !!s);
   }
 
-  /** ✅ Project Title Validator: min/max length, no emojis, no multiple spaces */
+  /** Project Title Validator: min/max length, no emojis, no multiple spaces */
   static titleValidator(minLength = 3, maxLength = 100): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const title = control.value;
@@ -84,7 +84,7 @@ export class ValidationUtils {
     };
   }
 
-  /** ✅ Project Description Validator: min/max length, no only-spaces */
+  /** Project Description Validator: min/max length, no only-spaces */
   static descriptionValidator(minLength = 10, maxLength = 400): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const desc = control.value;

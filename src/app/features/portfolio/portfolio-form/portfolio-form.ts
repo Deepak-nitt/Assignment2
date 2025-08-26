@@ -43,6 +43,7 @@ export class PortfolioFormComponent implements OnInit {
         skillsCsv: ValidationUtils.parseSkills(raw.skillsCsv).join(', '),
         projectTitle: raw.projectTitle.trim(),
         projectDescription: raw.projectDescription.trim(),
+        createdAt: Date.now(), // current timestamp
       };
 
       // Submit via service
